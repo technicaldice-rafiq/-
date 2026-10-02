@@ -1,1 +1,347 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>পাথর বালু ব্যবসা</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,"Noto Sans Bengali",sans-serif;
+  background:#f3f6f8;
+  color:#222;
+}
+
+header{
+  background:linear-gradient(135deg,#075e54,#128c7e);
+  color:white;
+  padding:30px 18px;
+  text-align:center;
+}
+
+header h1{
+  margin:0;
+  font-size:28px;
+}
+
+header p{
+  margin:10px 0 0;
+  font-size:16px;
+}
+
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  margin:15px 0;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+.card h2{
+  margin-top:0;
+  color:#075e54;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.product{
+  border:1px solid #ddd;
+  padding:18px 10px;
+  border-radius:14px;
+  text-align:center;
+}
+
+.product .icon{
+  font-size:42px;
+}
+
+.product h3{
+  margin:8px 0;
+}
+
+.product p{
+  color:#666;
+  font-size:14px;
+}
+
+label{
+  display:block;
+  margin-top:12px;
+  margin-bottom:6px;
+  font-weight:bold;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:13px;
+  border:1px solid #ccc;
+  border-radius:10px;
+  font-size:16px;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+button,.btn{
+  display:block;
+  width:100%;
+  padding:14px;
+  margin-top:15px;
+  border:none;
+  border-radius:10px;
+  background:#075e54;
+  color:white;
+  font-size:17px;
+  text-decoration:none;
+  text-align:center;
+  cursor:pointer;
+}
+
+.whatsapp{
+  background:#25D366;
+}
+
+.call{
+  background:#1976d2;
+}
+
+.info{
+  background:#fff8e1;
+  border-left:5px solid #ff9800;
+  padding:12px;
+  border-radius:8px;
+  margin-top:15px;
+}
+
+footer{
+  text-align:center;
+  padding:25px;
+  color:#666;
+  font-size:14px;
+}
+
+@media(max-width:500px){
+  .products{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🪨 পাথর & বালু ব্যবসা</h1>
+  <p>পাটগ্রাম থেকে ঢাকা ও আশেপাশে সরবরাহ</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>🛒 আমাদের পণ্য</h2>
+
+    <div class="products">
+
+      <div class="product">
+        <div class="icon">🪨</div>
+        <h3>পাথর</h3>
+        <p>বিভিন্ন ধরনের পাথর সরবরাহ করা হয়।</p>
+      </div>
+
+      <div class="product">
+        <div class="icon">🏖️</div>
+        <h3>বালু</h3>
+        <p>বিভিন্ন ধরনের বালু সরবরাহ করা হয়।</p>
+      </div>
+
+    </div>
+
+    <div class="info">
+      🚚 ঢাকা ও আশেপাশের এলাকায় সরবরাহের ব্যবস্থা করা যাবে।
+    </div>
+  </div>
+
+
+  <div class="card">
+    <h2>📦 অর্ডার / চাহিদা পাঠান</h2>
+
+    <label>পণ্য নির্বাচন করুন</label>
+
+    <select id="product">
+      <option value="পাথর">পাথর</option>
+      <option value="বালু">বালু</option>
+    </select>
+
+
+    <label>পরিমাণ</label>
+
+    <input
+      id="quantity"
+      type="text"
+      placeholder="যেমন: ১০ টন / ৫০০ ঘনফুট"
+    >
+
+
+    <label>ডেলিভারি স্থান</label>
+
+    <input
+      id="location"
+      type="text"
+      placeholder="যেমন: ঢাকা / গাজীপুর / নারায়ণগঞ্জ"
+    >
+
+
+    <label>আপনার নাম</label>
+
+    <input
+      id="name"
+      type="text"
+      placeholder="আপনার নাম"
+    >
+
+
+    <label>মোবাইল নম্বর</label>
+
+    <input
+      id="phone"
+      type="tel"
+      placeholder="01XXXXXXXXX"
+    >
+
+
+    <label>অতিরিক্ত তথ্য</label>
+
+    <textarea
+      id="message"
+      placeholder="আপনার প্রয়োজনীয় তথ্য লিখুন"
+    ></textarea>
+
+
+    <button onclick="sendOrder()">
+      📲 অর্ডার পাঠান
+    </button>
+
+  </div>
+
+
+  <div class="card">
+    <h2>📞 যোগাযোগ</h2>
+
+    <p>
+      পাথর, বালুর দাম এবং পরিবহন খরচ জানতে সরাসরি যোগাযোগ করুন।
+    </p>
+
+    <!-- ব্যবসার ফোন নম্বর পরে এখানে বসাব -->
+    <a class="btn call" href="tel:">
+      📞 ফোন করুন
+    </a>
+
+    <!-- WhatsApp নম্বর পরে এখানে বসাব -->
+    <a class="btn whatsapp" href="#">
+      💬 WhatsApp
+    </a>
+
+  </div>
+
+</div>
+
+
+<footer>
+  © 2026 পাথর & বালু ব্যবসা
+</footer>
+
+
+<script>
+
+function sendOrder(){
+
+  const product =
+    document.getElementById("product").value;
+
+  const quantity =
+    document.getElementById("quantity").value;
+
+  const location =
+    document.getElementById("location").value;
+
+  const name =
+    document.getElementById("name").value;
+
+  const phone =
+    document.getElementById("phone").value;
+
+  const message =
+    document.getElementById("message").value;
+
+
+  if(
+    quantity === "" ||
+    location === "" ||
+    name === "" ||
+    phone === ""
+  ){
+
+    alert("দয়া করে প্রয়োজনীয় তথ্য পূরণ করুন।");
+    return;
+  }
+
+
+  /*
+   * WhatsApp নম্বর এখানে পরে বসাব।
+   *
+   * উদাহরণ:
+   * const whatsapp = "8801XXXXXXXXX";
+   */
+
+  const whatsapp = "";
+
+
+  if(whatsapp === ""){
+
+    alert(
+      "ওয়েবসাইট তৈরি হয়েছে। WhatsApp নম্বর এখনো সেট করা হয়নি।"
+    );
+
+    return;
+  }
+
+
+  const text =
+    "পাথর-বালু অর্ডার%0A" +
+    "পণ্য: " + product + "%0A" +
+    "পরিমাণ: " + quantity + "%0A" +
+    "ডেলিভারি: " + location + "%0A" +
+    "নাম: " + name + "%0A" +
+    "মোবাইল: " + phone + "%0A" +
+    "অতিরিক্ত তথ্য: " + message;
+
+
+  window.open(
+    "https://wa.me/" + whatsapp + "?text=" + text,
+    "_blank"
+  );
+
+}
+
+</script>
+
+</body>
+</html>
