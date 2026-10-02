@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#075e54">
+
+<link rel="manifest" href="./manifest.json">
+
+<title>মেসার্স রহিমা ট্রেডার্স</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,"Noto Sans Bengali",sans-serif;
+  background:#f3f6f8;
+  color:#222;
+}
+
+header{
+  background:linear-gradient(135deg,#075e54,#128c7e);
+  color:white;
+  text-align:center;
+  padding:30px 15px;
+}
+
+.logo{
+  font-size:55px;
+}
+
+h1{
+  margin:5px 0;
+  font-size:27px;
+}
+
+.container{
+  max-width:650px;
+  margin:auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  margin:15px 0;
+  padding:20px;
+  border-radius:18px;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+.btn{
+  display:block;
+  width:100%;
+  padding:15px;
+  margin:12px 0;
+  border:0;
+  border-radius:12px;
+  color:white;
+  text-decoration:none;
+  text-align:center;
+  font-size:17px;
+}
+
+.customer{
+  background:#075e54;
+}
+
+.admin{
+  background:#6a1b9a;
+}
+
+.call{
+  background:#1976d2;
+}
+
+.whatsapp{
+  background:#25d366;
+}
+
+.install{
+  background:#ff9800;
+  cursor:pointer;
+}
+
+.small{
+  text-align:center;
+  color:#777;
+  font-size:14px;
+}
+
+.hidden{
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">🏪</div>
+
+<h1>M/S Rahima Traders</h1>
+
+<p>
+পাথর ও বালু সরবরাহ
+</p>
+
+<p>
+পাটগ্রাম থেকে ঢাকা ও আশেপাশের এলাকায়
+</p>
+
+</header>
+
+
+<div class="container">
+
+<div class="card">
+
+<h2>📦 আমাদের সেবা</h2>
+
+<p>
+এই অ্যাপের মাধ্যমে পাথর ও বালুর অর্ডার নেওয়া এবং অর্ডার পরিচালনা করা যাবে।
+</p>
+
+<a
+class="btn customer"
+href="./index.html">
+🛒 ক্রেতার অর্ডার
+</a>
+
+
+<a
+class="btn admin"
+href="./admin.html">
+🔐 Admin Panel
+</a>
+
+
+<button
+id="installBtn"
+class="btn install hidden">
+📲 ফোনে অ্যাপ ইনস্টল করুন
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>📞 যোগাযোগ</h2>
+
+<a
+class="btn call"
+href="tel:+8801764972228">
+📞 01764972228 — ফোন করুন
+</a>
+
+
+<a
+class="btn whatsapp"
+href="https://wa.me/8801764972228"
+target="_blank">
+💬 WhatsApp করুন
+</a>
+
+</div>
+
+
+<div class="card">
+
+<h3>📍 ব্যবসার এলাকা</h3>
+
+<p>
+পাটগ্রাম থেকে ঢাকা, গাজীপুর, নারায়ণগঞ্জসহ আশেপাশের এলাকায় পাথর ও বালু সরবরাহ।
+</p>
+
+</div>
+
+
+<p class="small">
+© 2026 Rafiqul Islam
+</p>
+
+</div>
+
+
+<script>
+
+let deferredPrompt = null;
+
+window.addEventListener(
+"beforeinstallprompt",
+function(event){
+
+event.preventDefault();
+
+deferredPrompt = event;
+
+document
+.getElementById("installBtn")
+.classList.remove("hidden");
+
+});
+
+
+document
+.getElementById("installBtn")
+.addEventListener(
+"click",
+async function(){
+
+if(!deferredPrompt){
+
+alert("এই ব্রাউজারে এখন Install অপশন পাওয়া যাচ্ছে না।");
+
+return;
+
+}
+
+deferredPrompt.prompt();
+
+await deferredPrompt.userChoice;
+
+deferredPrompt = null;
+
+document
+.getElementById("installBtn")
+.classList.add("hidden");
+
+});
+
+
+if("serviceWorker" in navigator){
+
+navigator.serviceWorker
+.register("./sw.js")
+.catch(function(error){
+
+console.log("Service Worker Error:",error);
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
