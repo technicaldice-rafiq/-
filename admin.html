@@ -2,39 +2,32 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>M/S Rahima Traders - Admin</title>
 
 <style>
-
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
 margin:0;
 font-family:Arial,"Noto Sans Bengali",sans-serif;
 background:#f3f6f8;
-color:#222;
+color:#222
 }
 
 header{
 background:#075e54;
 color:white;
 padding:20px;
-text-align:center;
+text-align:center
 }
 
-header h1{
-margin:0;
-font-size:24px;
-}
+header h1{margin:0;font-size:24px}
 
 .container{
 max-width:1100px;
 margin:auto;
-padding:15px;
+padding:15px
 }
 
 .card{
@@ -42,7 +35,7 @@ background:white;
 padding:18px;
 margin:15px 0;
 border-radius:14px;
-box-shadow:0 3px 12px rgba(0,0,0,.08);
+box-shadow:0 3px 12px rgba(0,0,0,.08)
 }
 
 input,select{
@@ -51,32 +44,38 @@ padding:12px;
 margin:6px 0;
 border:1px solid #ccc;
 border-radius:8px;
-font-size:16px;
+font-size:16px
 }
 
 button{
-padding:12px 16px;
+padding:11px 15px;
 border:0;
 border-radius:8px;
 background:#075e54;
 color:white;
-font-size:16px;
+font-size:15px;
 cursor:pointer;
-margin:5px 0;
+margin:4px
 }
 
-.logout{
-background:#d32f2f;
-}
+.refresh{background:#1976d2}
+.logout{background:#d32f2f}
+.call{background:#388e3c}
+.whatsapp{background:#25d366}
+.details{background:#6a1b9a}
+.close{background:#555}
 
-.refresh{
-background:#1976d2;
+.hidden{display:none}
+
+#loginMessage{
+color:#d32f2f;
+margin-top:10px
 }
 
 .stats{
 display:grid;
 grid-template-columns:repeat(4,1fr);
-gap:12px;
+gap:12px
 }
 
 .stat{
@@ -84,113 +83,127 @@ background:white;
 padding:18px;
 border-radius:12px;
 text-align:center;
-box-shadow:0 3px 10px rgba(0,0,0,.07);
+box-shadow:0 3px 10px rgba(0,0,0,.07)
 }
 
 .stat h3{
 margin:5px 0;
-font-size:28px;
+font-size:28px
 }
 
 .stat p{
 margin:0;
-font-weight:bold;
+font-weight:bold
 }
 
-.new{
-border-top:5px solid #ff9800;
-}
+.new{border-top:5px solid #ff9800}
+.delivery{border-top:5px solid #9c27b0}
+.completed{border-top:5px solid #4caf50}
 
-.processing{
-border-top:5px solid #2196f3;
-}
-
-.delivery{
-border-top:5px solid #9c27b0;
-}
-
-.completed{
-border-top:5px solid #4caf50;
-}
-
-.hidden{
-display:none;
-}
-
-#loginMessage{
-color:#d32f2f;
-margin-top:10px;
-}
-
-.tableWrap{
-overflow-x:auto;
-}
+.tableWrap{overflow-x:auto}
 
 table{
 width:100%;
 border-collapse:collapse;
 margin-top:15px;
 font-size:14px;
-min-width:950px;
+min-width:1100px
 }
 
 th,td{
 border:1px solid #ddd;
 padding:9px;
-text-align:left;
+text-align:left
 }
 
 th{
 background:#075e54;
-color:white;
+color:white
 }
 
 .status{
 padding:7px;
-margin:0;
+margin:0
 }
 
-.orderCount{
-font-weight:bold;
-margin-top:10px;
+.modal{
+position:fixed;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.6);
+display:flex;
+align-items:center;
+justify-content:center;
+padding:15px;
+z-index:1000
+}
+
+.modalBox{
+background:white;
+width:100%;
+max-width:550px;
+max-height:90vh;
+overflow:auto;
+border-radius:15px;
+padding:20px
+}
+
+.modalBox h2{
+margin-top:0;
+color:#075e54
+}
+
+.detailRow{
+padding:9px 0;
+border-bottom:1px solid #eee
+}
+
+.detailRow b{
+display:inline-block;
+min-width:130px
+}
+
+#newAlert{
+background:#fff3cd;
+color:#856404;
+padding:12px;
+border-radius:8px;
+margin-bottom:12px;
+display:none
 }
 
 @media(max-width:700px){
 
 .stats{
-grid-template-columns:repeat(2,1fr);
+grid-template-columns:repeat(2,1fr)
 }
 
 .stat h3{
-font-size:23px;
+font-size:23px
 }
 
 header h1{
-font-size:20px;
+font-size:20px
 }
 
-.card{
-padding:14px;
+button{
+width:100%;
+margin:4px 0
 }
-
 }
-
 </style>
 </head>
 
 <body>
 
 <header>
-
 <h1>🔐 M/S Rahima Traders</h1>
-
 <p>Admin Dashboard</p>
-
 </header>
 
-
 <div class="container">
-
 
 <!-- LOGIN -->
 
@@ -198,21 +211,15 @@ padding:14px;
 
 <h2>🔐 Admin Login</h2>
 
-<input
-id="adminEmail"
+<input id="adminEmail"
 type="email"
-placeholder="Admin Email"
->
+placeholder="Admin Email">
 
-<input
-id="adminPassword"
+<input id="adminPassword"
 type="password"
-placeholder="Password"
->
+placeholder="Password">
 
-<button onclick="login()">
-Login
-</button>
+<button onclick="login()">Login</button>
 
 <div id="loginMessage"></div>
 
@@ -222,9 +229,6 @@ Login
 <!-- ADMIN -->
 
 <div id="adminPanel" class="hidden">
-
-
-<!-- DASHBOARD -->
 
 <div class="stats">
 
@@ -251,64 +255,69 @@ Login
 </div>
 
 
-<!-- CONTROL -->
-
 <div class="card">
+
+<div id="newAlert">
+🔔 নতুন অর্ডার এসেছে!
+</div>
 
 <h2>📦 অর্ডার ম্যানেজমেন্ট</h2>
 
 <input
 id="searchBox"
 type="text"
-placeholder="🔎 নাম / মোবাইল / অর্ডার নম্বর দিয়ে খুঁজুন"
-oninput="filterOrders()"
->
+placeholder="🔎 নাম / মোবাইল / অর্ডার নম্বর"
+oninput="filterOrders()">
 
-<select
-id="statusFilter"
-onchange="filterOrders()"
->
+<select id="statusFilter"
+onchange="filterOrders()">
 
 <option value="সব">সব Status</option>
-
 <option value="নতুন">নতুন</option>
-
 <option value="প্রক্রিয়াধীন">প্রক্রিয়াধীন</option>
-
 <option value="ডেলিভারি">ডেলিভারি</option>
-
 <option value="সম্পন্ন">সম্পন্ন</option>
 
 </select>
 
-<button
-class="refresh"
-onclick="loadOrders()"
->
-🔄 Refresh Orders
+<button class="refresh"
+onclick="loadOrders()">
+🔄 Refresh
 </button>
 
-<button
-class="logout"
-onclick="logout()"
->
+<button class="logout"
+onclick="logout()">
 🚪 Logout
 </button>
 
-<div
-id="orderCount"
-class="orderCount"
->
-</div>
+<div id="orderCount"></div>
 
-<div
-id="orderArea"
->
+<div id="orderArea">
 ⏳ অর্ডার লোড হচ্ছে...
 </div>
 
 </div>
 
+</div>
+
+</div>
+
+
+<!-- DETAILS MODAL -->
+
+<div id="detailsModal"
+class="modal hidden">
+
+<div class="modalBox">
+
+<h2>📋 Order Details</h2>
+
+<div id="detailsContent"></div>
+
+<button class="close"
+onclick="closeDetails()">
+বন্ধ করুন
+</button>
 
 </div>
 
@@ -316,7 +325,6 @@ id="orderArea"
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 
 <script>
 
@@ -332,71 +340,53 @@ SUPABASE_URL,
 SUPABASE_KEY
 );
 
+let allOrders=[];
 
-let allOrders = [];
+let previousOrderCount=0;
 
 
 /* LOGIN */
 
 async function login(){
 
-const email =
-document
-.getElementById("adminEmail")
-.value
-.trim();
+const email=
+document.getElementById("adminEmail")
+.value.trim();
 
-const password =
-document
-.getElementById("adminPassword")
+const password=
+document.getElementById("adminPassword")
 .value;
-
 
 if(!email || !password){
 
-document
-.getElementById("loginMessage")
-.innerText =
+document.getElementById("loginMessage")
+.innerText=
 "Email এবং Password দিন।";
 
 return;
-
 }
 
-
-const {data,error} =
-await supabaseClient.auth.signInWithPassword({
-
+const {data,error}=
+await supabaseClient.auth
+.signInWithPassword({
 email:email,
-
 password:password
-
 });
-
 
 if(error){
 
-document
-.getElementById("loginMessage")
-.innerText =
+document.getElementById("loginMessage")
+.innerText=
 error.message;
 
 return;
-
 }
 
+document.getElementById("loginBox")
+.classList.add("hidden");
 
-document
-.getElementById("loginBox")
-.classList
-.add("hidden");
-
-
-document
-.getElementById("adminPanel")
-.classList
-.remove("hidden");
-
+document.getElementById("adminPanel")
+.classList.remove("hidden");
 
 loadOrders();
 
@@ -418,39 +408,43 @@ location.reload();
 
 async function loadOrders(){
 
-const area =
+const area=
 document.getElementById("orderArea");
 
-area.innerHTML =
+area.innerHTML=
 "⏳ অর্ডার লোড হচ্ছে...";
 
-
-const {data,error} =
+const {data,error}=
 await supabaseClient
-
 .from("orders")
-
 .select("*")
-
-.order(
-"created_at",
-{ascending:false}
-);
-
+.order("created_at",
+{ascending:false});
 
 if(error){
 
-area.innerHTML =
-"❌ অর্ডার লোড হয়নি: " +
+area.innerHTML=
+"❌ অর্ডার লোড হয়নি: "+
 error.message;
 
 return;
+}
+
+const newCount=data.length;
+
+if(previousOrderCount>0 &&
+newCount>previousOrderCount){
+
+document.getElementById("newAlert")
+.style.display="block";
+
+alert("🔔 নতুন অর্ডার এসেছে!");
 
 }
 
+previousOrderCount=newCount;
 
-allOrders = data || [];
-
+allOrders=data||[];
 
 updateDashboard();
 
@@ -463,100 +457,63 @@ displayOrders(allOrders);
 
 function updateDashboard(){
 
-const total =
+document.getElementById("totalOrders")
+.innerText=
 allOrders.length;
 
-const newCount =
+document.getElementById("newOrders")
+.innerText=
 allOrders.filter(
-o => o.status === "নতুন"
+o=>o.status==="নতুন"
 ).length;
 
-const deliveryCount =
+document.getElementById("deliveryOrders")
+.innerText=
 allOrders.filter(
-o => o.status === "ডেলিভারি"
+o=>o.status==="ডেলিভারি"
 ).length;
 
-const completedCount =
+document.getElementById("completedOrders")
+.innerText=
 allOrders.filter(
-o => o.status === "সম্পন্ন"
+o=>o.status==="সম্পন্ন"
 ).length;
-
-
-document
-.getElementById("totalOrders")
-.innerText =
-total;
-
-document
-.getElementById("newOrders")
-.innerText =
-newCount;
-
-document
-.getElementById("deliveryOrders")
-.innerText =
-deliveryCount;
-
-document
-.getElementById("completedOrders")
-.innerText =
-completedCount;
 
 }
 
 
-/* SEARCH + FILTER */
+/* SEARCH */
 
 function filterOrders(){
 
-const search =
-document
-.getElementById("searchBox")
-.value
-.toLowerCase()
+const search=
+document.getElementById("searchBox")
+.value.toLowerCase()
 .trim();
 
-
-const status =
-document
-.getElementById("statusFilter")
+const status=
+document.getElementById("statusFilter")
 .value;
 
+const filtered=
+allOrders.filter(order=>{
 
-const filtered =
-allOrders.filter(order => {
+const text=(
 
-const text = (
-
-(order.order_no || "") +
-" " +
-(order.customer_name || "") +
-" " +
-(order.phone || "") +
-" " +
-(order.product || "") +
-" " +
-(order.type || "") +
-" " +
-(order.delivery_location || "")
+(order.order_no||"")+" "+
+(order.customer_name||"")+" "+
+(order.phone||"")+" "+
+(order.product||"")+" "+
+(order.type||"")+" "+
+(order.delivery_location||"")
 
 ).toLowerCase();
 
-
-const searchMatch =
-!search ||
-text.includes(search);
-
-
-const statusMatch =
-status === "সব" ||
-order.status === status;
-
-
-return searchMatch && statusMatch;
+return
+(!search || text.includes(search)) &&
+(status==="সব" || order.status===status);
 
 });
-
 
 displayOrders(filtered);
 
@@ -567,29 +524,24 @@ displayOrders(filtered);
 
 function displayOrders(data){
 
-const area =
+const area=
 document.getElementById("orderArea");
 
-
-document
-.getElementById("orderCount")
-.innerText =
-"দেখানো হচ্ছে: " +
-data.length +
+document.getElementById("orderCount")
+.innerText=
+"দেখানো হচ্ছে: "+
+data.length+
 " টি অর্ডার";
 
+if(!data.length){
 
-if(!data || data.length === 0){
-
-area.innerHTML =
+area.innerHTML=
 "📭 কোনো অর্ডার পাওয়া যায়নি।";
 
 return;
-
 }
 
-
-let html = `
+let html=`
 
 <div class="tableWrap">
 
@@ -598,102 +550,82 @@ let html = `
 <tr>
 
 <th>Order</th>
-
 <th>Date</th>
-
 <th>Product</th>
-
 <th>Type</th>
-
 <th>Quantity</th>
-
 <th>Location</th>
-
 <th>Name</th>
-
 <th>Phone</th>
-
 <th>Status</th>
+<th>Details</th>
 
 </tr>
-
 `;
 
+data.forEach(order=>{
 
-data.forEach(order => {
-
-html += `
+html+=`
 
 <tr>
 
-<td>
-${order.order_no || ""}
-</td>
+<td>${safe(order.order_no)}</td>
 
-<td>
-${formatDate(order.created_at)}
-</td>
+<td>${formatDate(order.created_at)}</td>
 
-<td>
-${order.product || ""}
-</td>
+<td>${safe(order.product)}</td>
 
-<td>
-${order.type || ""}
-</td>
+<td>${safe(order.type)}</td>
 
-<td>
-${order.quantity || ""}
-</td>
+<td>${safe(order.quantity)}</td>
 
-<td>
-${order.delivery_location || ""}
-</td>
+<td>${safe(order.delivery_location)}</td>
 
-<td>
-${order.customer_name || ""}
-</td>
+<td>${safe(order.customer_name)}</td>
 
-<td>
-${order.phone || ""}
-</td>
+<td>${safe(order.phone)}</td>
 
 <td>
 
 <select
 class="status"
-onchange="changeStatus('${order.id}',this.value)"
->
+onchange="changeStatus('${order.id}',this.value)">
 
 <option
 ${order.status==="নতুন"?"selected":""}
-value="নতুন"
->
+value="নতুন">
 নতুন
 </option>
 
 <option
 ${order.status==="প্রক্রিয়াধীন"?"selected":""}
-value="প্রক্রিয়াধীন"
->
+value="প্রক্রিয়াধীন">
 প্রক্রিয়াধীন
 </option>
 
 <option
 ${order.status==="ডেলিভারি"?"selected":""}
-value="ডেলিভারি"
->
+value="ডেলিভারি">
 ডেলিভারি
 </option>
 
 <option
 ${order.status==="সম্পন্ন"?"selected":""}
-value="সম্পন্ন"
->
+value="সম্পন্ন">
 সম্পন্ন
 </option>
 
 </select>
+
+</td>
+
+<td>
+
+<button
+class="details"
+onclick="showDetails('${order.id}')">
+📋 Details
+</button>
 
 </td>
 
@@ -703,62 +635,156 @@ value="সম্পন্ন"
 
 });
 
-
-html += `
+html+=`
 
 </table>
 
 </div>
-
 `;
 
-
-area.innerHTML = html;
+area.innerHTML=html;
 
 }
 
 
-/* CHANGE STATUS */
+/* DETAILS */
+
+function showDetails(id){
+
+const order=
+allOrders.find(
+o=>String(o.id)===String(id)
+);
+
+if(!order)return;
+
+const phone=
+(order.phone||"")
+.replace(/\D/g,"");
+
+const whatsapp=
+phone.startsWith("0")
+?"88"+phone
+:phone;
+
+let html=`
+
+<div class="detailRow">
+<b>অর্ডার:</b>
+${safe(order.order_no)}
+</div>
+
+<div class="detailRow">
+<b>তারিখ:</b>
+${formatDate(order.created_at)}
+</div>
+
+<div class="detailRow">
+<b>পণ্য:</b>
+${safe(order.product)}
+</div>
+
+<div class="detailRow">
+<b>সাইজ/ধরন:</b>
+${safe(order.type)}
+</div>
+
+<div class="detailRow">
+<b>পরিমাণ:</b>
+${safe(order.quantity)}
+</div>
+
+<div class="detailRow">
+<b>ডেলিভারি:</b>
+${safe(order.delivery_location)}
+</div>
+
+<div class="detailRow">
+<b>ক্রেতার নাম:</b>
+${safe(order.customer_name)}
+</div>
+
+<div class="detailRow">
+<b>মোবাইল:</b>
+${safe(order.phone)}
+</div>
+
+<div class="detailRow">
+<b>Status:</b>
+${safe(order.status)}
+</div>
+
+<div class="detailRow">
+<b>অতিরিক্ত তথ্য:</b>
+${safe(order.message)}
+</div>
+
+<br>
+
+<a href="tel:${safe(order.phone)}">
+<button class="call">
+📞 Call Customer
+</button>
+</a>
+
+<a
+href="https://wa.me/${whatsapp}"
+target="_blank">
+
+<button class="whatsapp">
+💬 WhatsApp Customer
+</button>
+
+</a>
+
+`;
+
+document.getElementById("detailsContent")
+.innerHTML=html;
+
+document.getElementById("detailsModal")
+.classList.remove("hidden");
+
+}
+
+
+/* CLOSE DETAILS */
+
+function closeDetails(){
+
+document.getElementById("detailsModal")
+.classList.add("hidden");
+
+}
+
+
+/* STATUS */
 
 async function changeStatus(id,status){
 
-const {error} =
+const {error}=
 await supabaseClient
-
 .from("orders")
-
-.update({
-status:status
-})
-
+.update({status:status})
 .eq("id",id);
-
 
 if(error){
 
 alert(
-"Status পরিবর্তন হয়নি: " +
+"Status পরিবর্তন হয়নি: "+
 error.message
 );
 
 return;
-
 }
 
-
-/* LOCAL DATA UPDATE */
-
-const order =
+const order=
 allOrders.find(
-o => String(o.id) === String(id)
+o=>String(o.id)===String(id)
 );
 
-if(order){
-
-order.status = status;
-
-}
-
+if(order)
+order.status=status;
 
 updateDashboard();
 
@@ -771,8 +797,7 @@ filterOrders();
 
 function formatDate(date){
 
-if(!date)
-return "";
+if(!date)return "";
 
 return new Date(date)
 .toLocaleString("bn-BD");
@@ -780,27 +805,39 @@ return new Date(date)
 }
 
 
-/* CHECK SESSION */
+/* SAFE TEXT */
+
+function safe(value){
+
+if(value===null ||
+value===undefined)
+return "";
+
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* SESSION */
 
 async function checkSession(){
 
-const {data} =
-await supabaseClient
-.auth
+const {data}=
+await supabaseClient.auth
 .getSession();
-
 
 if(data.session){
 
-document
-.getElementById("loginBox")
-.classList
-.add("hidden");
+document.getElementById("loginBox")
+.classList.add("hidden");
 
-document
-.getElementById("adminPanel")
-.classList
-.remove("hidden");
+document.getElementById("adminPanel")
+.classList.remove("hidden");
 
 loadOrders();
 
@@ -808,10 +845,11 @@ loadOrders();
 
 }
 
-
 checkSession();
 
-</script>
 
-</body>
-</html>
+/* AUTO CHECK EVERY 30 SEC */
+
+setInterval(()=>{
+
+if(!document
