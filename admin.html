@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title> মেসার্স রহিমা ট্রেডার্স - Admin</title>
+<title>M/S Rahima Traders - Admin</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -148,7 +148,7 @@ th{
 <body>
 
 <header>
-  <h2>🏪 মেসার্স রহিমা ট্রেডার্স 🏢 </h2>
+  <h2>🏪 M/S Rahima Traders</h2>
   <div>Admin Panel</div>
 </header>
 
@@ -596,15 +596,17 @@ function displayOrders(data){
 
 }
 
+
 async function changeStatus(id,status){
 
   const {error} =
     await supabaseClient
       .from("orders")
       .update({
-        status: status
+        status:status
       })
       .eq("id",id);
+
 
   if(error){
 
@@ -616,62 +618,103 @@ async function changeStatus(id,status){
     return;
   }
 
+
   const order =
     allOrders.find(
       o => String(o.id) === String(id)
     );
 
+
   if(order){
 
     order.status = status;
 
-    updateDashboard();
-    filterOrders();
-
-    // WhatsApp message
-    const phone =
-      (order.phone || "")
-      .replace(/\D/g,"")
-      .replace(/^0/,"88");
-
-    const message =
-      "🏪 মেসার্স রহিমা ট্রেডার্স 🏢 \n\n" +
-      "📦 আপনার অর্ডারের আপডেট\n\n" +
-      "অর্ডার নম্বর: " +
-      (order.order_no || "") +
-      "\nপণ্য: " +
-      (order.product || "") +
-      "\nসাইজ/ধরন: " +
-      (order.type || "") +
-      "\nপরিমাণ: " +
-      (order.quantity || "") +
-      "\nডেলিভারি স্থান: " +
-      (order.delivery_location || "") +
-      "\n\n📌 বর্তমান Status: " +
-      status;
-
-    if(phone){
-
-      const whatsappUrl =
-        "https://wa.me/" +
-        phone +
-        "?text=" +
-        encodeURIComponent(message);
-
-      const button =
-        confirm(
-          "✅ Status আপডেট হয়েছে।\n\n" +
-          "ক্রেতাকে WhatsApp-এ জানাবেন?"
-        );
-
-      if(button){
-        window.open(
-          whatsappUrl,
-          "_blank"
-        );
-      }
-    }
   }
+
+
+  updateDashboard();
+
+  filterOrders();
+
+}
+
+
+function formatDate(date){
+
+  if(!date) return "";
+
+  return new Date(date)
+    .toLocaleString("bn-BD");
+
+}
+function showOrderDetails(id){
+
+  const order = allOrders.find(
+    o => String(o.id) === String(id)
+  );
+
+  if(!order){
+    alert("অর্ডারের তথ্য পাওয়া যায়নি।");
+    return;
+  }
+
+  const phone = order.phone || "";
+
+  const whatsapp =
+    phone.replace(/\D/g,"").replace(/^0/,"88");
+
+  const details =
+    "📦 M/S Rahima Traders\n\n" +
+
+    "অর্ডার নম্বর: " + (order.order_no || "") +
+
+    "\nপণ্য: " + (order.product || "") +
+
+    "\nসাইজ/ধরন: " + (order.type || "") +
+
+    "\nপরিমাণ: " + (order.quantity || "") +
+
+    "\nডেলিভারি স্থান: " +
+    (order.delivery_location || "") +
+
+    "\nক্রেতার নাম: " +
+    (order.customer_name || "") +
+
+    "\nমোবাইল: " + phone +
+
+    "\nStatus: " +
+    (order.status || "") +
+
+    "\nঅতিরিক্ত তথ্য: " +
+    (order.message || "");
+
+
+  const choice = confirm(
+    details +
+
+    "\n\n📞 OK = Call" +
+
+    "\n💬 Cancel = WhatsApp"
+  );
+
+
+  if(choice){
+
+    window.location.href =
+      "tel:" + phone;
+
+  }else{
+
+    window.open(
+      "https://wa.me/" +
+      whatsapp +
+      "?text=" +
+      encodeURIComponent(details),
+      "_blank"
+    );
+
+  }
+
 }
 
 async function checkSession(){
