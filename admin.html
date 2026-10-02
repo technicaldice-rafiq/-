@@ -1,1 +1,482 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>M/S Rahima Traders - Admin</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,"Noto Sans Bengali",sans-serif;
+  background:#f3f6f8;
+  color:#222;
+}
+
+header{
+  background:#075e54;
+  color:white;
+  padding:22px;
+  text-align:center;
+}
+
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  margin:15px 0;
+  border-radius:14px;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+input,select{
+  width:100%;
+  padding:13px;
+  margin:8px 0;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:16px;
+}
+
+button{
+  width:100%;
+  padding:13px;
+  margin-top:10px;
+  border:0;
+  border-radius:8px;
+  background:#075e54;
+  color:white;
+  font-size:16px;
+}
+
+.logout{
+  background:#d32f2f;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
+  font-size:14px;
+}
+
+th,td{
+  border:1px solid #ddd;
+  padding:9px;
+  text-align:left;
+}
+
+th{
+  background:#075e54;
+  color:white;
+}
+
+.status{
+  padding:7px;
+  border-radius:6px;
+}
+
+.hidden{
+  display:none;
+}
+
+#loginMessage{
+  color:#d32f2f;
+  margin-top:10px;
+}
+
+@media(max-width:700px){
+
+  table{
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>🔐 M/S Rahima Traders</h1>
+<p>Admin Panel</p>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- LOGIN -->
+
+<div id="loginBox" class="card">
+
+<h2>🔐 Admin Login</h2>
+
+<input
+id="adminEmail"
+type="email"
+placeholder="Admin Email"
+>
+
+<input
+id="adminPassword"
+type="password"
+placeholder="Password"
+>
+
+<button onclick="login()">
+Login
+</button>
+
+<div id="loginMessage"></div>
+
+</div>
+
+
+<!-- ADMIN -->
+
+<div id="adminPanel" class="hidden">
+
+
+<div class="card">
+
+<h2>📦 অর্ডার তালিকা</h2>
+
+<button onclick="loadOrders()">
+🔄 Refresh Orders
+</button>
+
+<button class="logout" onclick="logout()">
+🚪 Logout
+</button>
+
+<div id="orderArea">
+অর্ডার লোড হচ্ছে...
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+/* =========================
+SUPABASE
+========================= */
+
+const SUPABASE_URL =
+"https://qstotlvpbygjsirqrpfj.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_8BctUmRxcq50smh4iiviuA_ouCGqobz";
+
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+/* =========================
+LOGIN
+========================= */
+
+async function login(){
+
+const email =
+document.getElementById("adminEmail").value.trim();
+
+const password =
+document.getElementById("adminPassword").value;
+
+if(!email || !password){
+
+document.getElementById("loginMessage").innerText =
+"Email এবং Password দিন।";
+
+return;
+
+}
+
+const {data,error} =
+await supabaseClient.auth.signInWithPassword({
+
+email:email,
+
+password:password
+
+});
+
+
+if(error){
+
+document.getElementById("loginMessage").innerText =
+error.message;
+
+return;
+
+}
+
+document.getElementById("loginBox")
+.classList.add("hidden");
+
+document.getElementById("adminPanel")
+.classList.remove("hidden");
+
+loadOrders();
+
+}
+
+
+/* =========================
+LOGOUT
+========================= */
+
+async function logout(){
+
+await supabaseClient.auth.signOut();
+
+location.reload();
+
+}
+
+
+/* =========================
+LOAD ORDERS
+========================= */
+
+async function loadOrders(){
+
+const area =
+document.getElementById("orderArea");
+
+area.innerHTML =
+"⏳ অর্ডার লোড হচ্ছে...";
+
+
+const {data,error} =
+await supabaseClient
+.from("orders")
+.select("*")
+.order("created_at",{ascending:false});
+
+
+if(error){
+
+area.innerHTML =
+"❌ অর্ডার লোড হয়নি: " +
+error.message;
+
+return;
+
+}
+
+
+if(!data || data.length === 0){
+
+area.innerHTML =
+"📭 এখনো কোনো অর্ডার নেই।";
+
+return;
+
+}
+
+
+let html = `
+
+<table>
+
+<tr>
+
+<th>Order</th>
+<th>Date</th>
+<th>Product</th>
+<th>Type</th>
+<th>Quantity</th>
+<th>Location</th>
+<th>Name</th>
+<th>Phone</th>
+<th>Status</th>
+
+</tr>
+
+`;
+
+
+data.forEach(order => {
+
+html += `
+
+<tr>
+
+<td>
+${order.order_no || ""}
+</td>
+
+<td>
+${formatDate(order.created_at)}
+</td>
+
+<td>
+${order.product || ""}
+</td>
+
+<td>
+${order.type || ""}
+</td>
+
+<td>
+${order.quantity || ""}
+</td>
+
+<td>
+${order.delivery_location || ""}
+</td>
+
+<td>
+${order.customer_name || ""}
+</td>
+
+<td>
+${order.phone || ""}
+</td>
+
+<td>
+
+<select
+class="status"
+onchange="changeStatus('${order.id}',this.value)"
+>
+
+<option
+${order.status==="নতুন"?"selected":""}
+value="নতুন">
+নতুন
+</option>
+
+<option
+${order.status==="প্রক্রিয়াধীন"?"selected":""}
+value="প্রক্রিয়াধীন">
+প্রক্রিয়াধীন
+</option>
+
+<option
+${order.status==="ডেলিভারি"?"selected":""}
+value="ডেলিভারি">
+ডেলিভারি
+</option>
+
+<option
+${order.status==="সম্পন্ন"?"selected":""}
+value="সম্পন্ন">
+সম্পন্ন
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+html += "</table>";
+
+area.innerHTML = html;
+
+}
+
+
+/* =========================
+CHANGE STATUS
+========================= */
+
+async function changeStatus(id,status){
+
+const {error} =
+await supabaseClient
+.from("orders")
+.update({
+status:status
+})
+.eq("id",id);
+
+
+if(error){
+
+alert(
+"Status পরিবর্তন হয়নি: " +
+error.message
+);
+
+return;
+
+}
+
+}
+
+
+/* =========================
+DATE
+========================= */
+
+function formatDate(date){
+
+if(!date) return "";
+
+return new Date(date).toLocaleString(
+"bn-BD"
+);
+
+}
+
+
+/* =========================
+CHECK SESSION
+========================= */
+
+async function checkSession(){
+
+const {data} =
+await supabaseClient.auth.getSession();
+
+if(data.session){
+
+document.getElementById("loginBox")
+.classList.add("hidden");
+
+document.getElementById("adminPanel")
+.classList.remove("hidden");
+
+loadOrders();
+
+}
+
+}
+
+checkSession();
+
+</script>
+
+</body>
+</html>
