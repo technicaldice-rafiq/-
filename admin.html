@@ -648,6 +648,7 @@ let html = `
 <th>Phone</th>
 
 <th>Status</th>
+<th>Details</th>
 
 </tr>
 
@@ -698,6 +699,13 @@ ${order.phone || ""}
 class="status"
 onchange="changeStatus('${order.id}',this.value)"
 >
+<br>
+
+<button
+onclick="showOrderDetails('${order.id}')"
+style="background:#6a1b9a;padding:7px 10px;font-size:13px;">
+📋 Details
+</button>
 
 <option
 ${order.status === "নতুন" ? "selected" : ""}
@@ -798,7 +806,85 @@ filterOrders();
 
 }
 
+/* ORDER DETAILS */
 
+function showOrderDetails(id){
+
+const order = allOrders.find(
+o => String(o.id) === String(id)
+);
+
+if(!order){
+
+alert("অর্ডারের তথ্য পাওয়া যায়নি।");
+
+return;
+
+}
+
+const phone =
+(order.phone || "").replace(/\D/g,"");
+
+const whatsapp =
+phone.startsWith("0")
+? "88" + phone
+: phone;
+
+let details =
+
+"📦 M/S Rahima Traders\n\n" +
+
+"অর্ডার নম্বর: " +
+(order.order_no || "") +
+
+"\n\nপণ্য: " +
+(order.product || "") +
+
+"\nসাইজ/ধরন: " +
+(order.type || "") +
+
+"\nপরিমাণ: " +
+(order.quantity || "") +
+
+"\nডেলিভারি স্থান: " +
+(order.delivery_location || "") +
+
+"\nক্রেতার নাম: " +
+(order.customer_name || "") +
+
+"\nমোবাইল: " +
+(order.phone || "") +
+
+"\nStatus: " +
+(order.status || "") +
+
+"\nঅতিরিক্ত তথ্য: " +
+(order.message || "");
+
+const action =
+confirm(
+details +
+"\n\n📞 OK = Call\n💬 Cancel = WhatsApp"
+);
+
+if(action){
+
+window.location.href =
+"tel:" + (order.phone || "");
+
+}else{
+
+window.open(
+"https://wa.me/" +
+whatsapp +
+"?text=" +
+encodeURIComponent(details),
+"_blank"
+);
+
+}
+
+}
 /* DATE */
 
 function formatDate(date){
