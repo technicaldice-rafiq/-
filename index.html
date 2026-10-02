@@ -114,7 +114,6 @@ button{
   background:#075e54;
   color:white;
   font-size:17px;
-  cursor:pointer;
 }
 
 .contact-btn{
@@ -163,6 +162,7 @@ footer{
 }
 
 @media(max-width:500px){
+
   .products{
     grid-template-columns:1fr;
   }
@@ -170,6 +170,7 @@ footer{
   header h1{
     font-size:25px;
   }
+
 }
 </style>
 </head>
@@ -190,7 +191,7 @@ footer{
 <div class="container">
 
 
-<!-- পণ্য -->
+<!-- আমাদের পণ্য -->
 
 <div class="card">
 
@@ -198,264 +199,7 @@ footer{
 
 <div class="products">
 
-<div class="product">
-
-<div class="icon">🪨</div>
-
-<h3>পাথর</h3>
-
-<p>
-৩০/৪০<br>
-৫/৮<br>
-৩/৪<br>
-৩/৪ ডাউন<br>
-১/২<br>
-১/৪
-</p>
-
-</div>
-
 
 <div class="product">
 
-<div class="icon">🏖️</div>
-
-<h3>বালু</h3>
-
-<p>
-সাদা চিকন<br>
-সাদা আস্তর<br>
-২.৫<br>
-২.৮
-</p>
-
-</div>
-
-</div>
-
-
-<div class="info">
-
-🚚 ঢাকা, গাজীপুর, নারায়ণগঞ্জসহ আশেপাশের এলাকায়
-সরবরাহের ব্যবস্থা করা যাবে।
-
-</div>
-
-</div>
-
-
-<!-- অর্ডার -->
-
-<div class="card">
-
-<h2>📦 অর্ডার / চাহিদা পাঠান</h2>
-
-<label>
-পণ্য নির্বাচন করুন
-</label>
-
-<select id="product" onchange="changeType()">
-
-<option value="পাথর">
-🪨 পাথর
-</option>
-
-<option value="বালু">
-🏖️ বালু
-</option>
-
-</select>
-
-
-<label>
-সাইজ / ধরন নির্বাচন করুন
-</label>
-
-<select id="type">
-
-<option value="৩০/৪০">৩০/৪০</option>
-<option value="৫/৮">৫/৮</option>
-<option value="৩/৪">৩/৪</option>
-<option value="৩/৪ ডাউন">৩/৪ ডাউন</option>
-<option value="১/২">১/২</option>
-<option value="১/৪">১/৪</option>
-
-</select>
-
-
-<label>
-পরিমাণ
-</label>
-
-<input
-id="quantity"
-type="text"
-placeholder="যেমন: ১০ টন / ৫০০ ঘনফুট"
->
-
-
-<label>
-ডেলিভারি স্থান
-</label>
-
-<input
-id="location"
-type="text"
-placeholder="যেমন: ঢাকা / গাজীপুর / নারায়ণগঞ্জ"
->
-
-
-<label>
-আপনার নাম
-</label>
-
-<input
-id="name"
-type="text"
-placeholder="আপনার নাম"
->
-
-
-<label>
-মোবাইল নম্বর
-</label>
-
-<input
-id="phone"
-type="tel"
-placeholder="01XXXXXXXXX"
->
-
-
-<label>
-অতিরিক্ত তথ্য
-</label>
-
-<textarea
-id="message"
-placeholder="আপনার প্রয়োজনীয় তথ্য লিখুন"
-></textarea>
-
-
-<button onclick="sendOrder()">
-
-📲 WhatsApp-এ অর্ডার পাঠান
-
-</button>
-
-
-<div id="success" class="success">
-
-✅ অর্ডারের তথ্য তৈরি হয়েছে।
-WhatsApp খুলে পাঠিয়ে দিন।
-
-</div>
-
-</div>
-
-
-<!-- যোগাযোগ -->
-
-<div class="card">
-
-<h2>📞 সরাসরি যোগাযোগ</h2>
-
-<p>
-M/S Rahima Traders-এর পাথর, বালুর দাম এবং পরিবহন খরচ জানতে সরাসরি যোগাযোগ করুন।
-</p>
-
-
-<a
-class="contact-btn call"
-href="tel:+8801749252145"
->
-
-📞 01749252145 — ফোন করুন
-
-</a>
-
-
-<a
-class="contact-btn whatsapp"
-href="https://wa.me/8801749252145"
-target="_blank"
->
-
-💬 WhatsApp করুন
-
-</a>
-
-</div>
-
-
-</div>
-
-
-<footer>
-
-© 2026 M/S Rahima Traders
-
-</footer>
-
-
-<script>
-
-/* পণ্য অনুযায়ী সাইজ পরিবর্তন */
-
-function changeType(){
-
-const product =
-document.getElementById("product").value;
-
-const type =
-document.getElementById("type");
-
-
-if(product === "পাথর"){
-
-type.innerHTML = `
-
-<option value="৩০/৪০">৩০/৪০</option>
-
-<option value="৫/৮">৫/৮</option>
-
-<option value="৩/৪">৩/৪</option>
-
-<option value="৩/৪ ডাউন">৩/৪ ডাউন</option>
-
-<option value="১/২">১/২</option>
-
-<option value="১/৪">১/৪</option>
-
-`;
-
-}
-
-else{
-
-type.innerHTML = `
-
-<option value="সাদা চিকন">সাদা চিকন</option>
-
-<option value="সাদা আস্তর">সাদা আস্তর</option>
-
-<option value="২.৫">২.৫</option>
-
-<option value="২.৮">২.৮</option>
-
-`;
-
-}
-
-}
-
-
-/* WhatsApp Order */
-
-function sendOrder(){
-
-const product =
-document.getElementById("product").value;
-
-const type =
-document.getElementById("type").
+<div class="icon">🪨
