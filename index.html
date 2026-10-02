@@ -222,6 +222,166 @@ target="_blank">
 
 <script>
 
+const SUPABASE_URL = "https://qstotlvpbygjsirqrpfj.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_8BctUmRxcq50smh4iiviuA_ouCGqobz";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+/* =========================
+   পাথর / বালুর সাইজ পরিবর্তন
+========================= */
+
+function changeType() {
+
+  const product = document.getElementById("product");
+  const type = document.getElementById("type");
+
+  if (!product || !type) {
+    alert("Product বা Type field পাওয়া যায়নি");
+    return;
+  }
+
+  if (product.value === "পাথর") {
+
+    type.innerHTML = `
+      <option value="৩০/৪০">৩০/৪০</option>
+      <option value="৫/৮">৫/৮</option>
+      <option value="৩/৪">৩/৪</option>
+      <option value="৩/৪ ডাউন">৩/৪ ডাউন</option>
+      <option value="১/২">১/২</option>
+      <option value="১/৪">১/৪</option>
+    `;
+
+  } else {
+
+    type.innerHTML = `
+      <option value="সাদা চিকন">সাদা চিকন</option>
+      <option value="সাদা আস্তর">সাদা আস্তর</option>
+      <option value="২.৫">২.৫</option>
+      <option value="২.৮">২.৮</option>
+    `;
+
+  }
+}
+
+
+/* =========================
+   ORDER
+========================= */
+
+async function sendOrder() {
+
+  try {
+
+    const product = document.getElementById("product").value;
+    const type = document.getElementById("type").value;
+    const quantity = document.getElementById("quantity").value.trim();
+    const location = document.getElementById("location").value.trim();
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (!quantity || !location || !name || !phone) {
+
+      alert(
+        "দয়া করে পরিমাণ, ডেলিভারি স্থান, নাম এবং মোবাইল নম্বর পূরণ করুন।"
+      );
+
+      return;
+    }
+
+
+    /* Order Number */
+
+    const orderNo = "RT-" + Date.now();
+
+
+    /* আগে Supabase-এ Save */
+
+    const result = await supabaseClient
+      .from("orders")
+      .insert({
+        order_no: orderNo,
+        product: product,
+        type: type,
+        quantity: quantity,
+        delivery_location: location,
+        customer_name: name,
+        phone: phone,
+        message: message
+      });
+
+
+    if (result.error) {
+
+      console.error("SUPABASE ERROR:", result.error);
+
+      alert(
+        "অর্ডার ডাটাবেজে Save হয়নি।\n\n" +
+        result.error.message
+      );
+
+      return;
+    }
+
+
+    /* Success */
+
+    document.getElementById("success").style.display = "block";
+
+    document.getElementById("success").innerHTML =
+      "✅ অর্ডার সফলভাবে Save হয়েছে।<br>" +
+      "অর্ডার নম্বর: <b>" + orderNo + "</b>";
+
+
+    /* WhatsApp Message */
+
+    const whatsapp = "8801749252145";
+
+    const text =
+      "🏪 M/S Rahima Traders" +
+      "\n\n📦 নতুন অর্ডার" +
+      "\n\nঅর্ডার নম্বর: " + orderNo +
+      "\nপণ্য: " + product +
+      "\nসাইজ/ধরন: " + type +
+      "\nপরিমাণ: " + quantity +
+      "\nডেলিভারি স্থান: " + location +
+      "\nক্রেতার নাম: " + name +
+      "\nক্রেতার মোবাইল: " + phone +
+      "\nঅতিরিক্ত তথ্য: " + message;
+
+
+    const url =
+      "https://wa.me/" +
+      whatsapp +
+      "?text=" +
+      encodeURIComponent(text);
+
+
+    window.open(url, "_blank");
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "একটি সমস্যা হয়েছে। আবার চেষ্টা করুন।"
+    );
+
+  }
+
+}
+
+</script>
+
+<script>
+
 const SUPABASE_URL =
 "https://qstotlvpbygjsirqrpfj.supabase.co";
 
