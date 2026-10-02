@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>পাথর ও বালু ব্যবসা</title>
+<title>M/S Rahima Traders</title>
 
 <style>
 *{
@@ -117,10 +117,6 @@ button{
   cursor:pointer;
 }
 
-button:active{
-  transform:scale(.98);
-}
-
 .contact-btn{
   display:block;
   width:100%;
@@ -167,7 +163,6 @@ footer{
 }
 
 @media(max-width:500px){
-
   .products{
     grid-template-columns:1fr;
   }
@@ -175,7 +170,6 @@ footer{
   header h1{
     font-size:25px;
   }
-
 }
 </style>
 </head>
@@ -184,10 +178,10 @@ footer{
 
 <header>
 
-<h1>🪨 পাথর & বালু ব্যবসা</h1>
+<h1>🏪 M/S Rahima Traders</h1>
 
 <p>
-পাটগ্রাম থেকে ঢাকা ও আশেপাশে সরবরাহ
+পাটগ্রাম থেকে ঢাকা ও আশেপাশে পাথর-বালু সরবরাহ
 </p>
 
 </header>
@@ -202,9 +196,7 @@ footer{
 
 <h2>🛒 আমাদের পণ্য</h2>
 
-
 <div class="products">
-
 
 <div class="product">
 
@@ -239,7 +231,6 @@ footer{
 
 </div>
 
-
 </div>
 
 
@@ -253,13 +244,11 @@ footer{
 </div>
 
 
-
 <!-- অর্ডার -->
 
 <div class="card">
 
 <h2>📦 অর্ডার / চাহিদা পাঠান</h2>
-
 
 <label>
 পণ্য নির্বাচন করুন
@@ -278,7 +267,6 @@ footer{
 </select>
 
 
-
 <label>
 সাইজ / ধরন নির্বাচন করুন
 </label>
@@ -295,7 +283,6 @@ footer{
 </select>
 
 
-
 <label>
 পরিমাণ
 </label>
@@ -305,7 +292,6 @@ id="quantity"
 type="text"
 placeholder="যেমন: ১০ টন / ৫০০ ঘনফুট"
 >
-
 
 
 <label>
@@ -319,7 +305,6 @@ placeholder="যেমন: ঢাকা / গাজীপুর / নারা�
 >
 
 
-
 <label>
 আপনার নাম
 </label>
@@ -329,7 +314,6 @@ id="name"
 type="text"
 placeholder="আপনার নাম"
 >
-
 
 
 <label>
@@ -343,7 +327,6 @@ placeholder="01XXXXXXXXX"
 >
 
 
-
 <label>
 অতিরিক্ত তথ্য
 </label>
@@ -352,7 +335,6 @@ placeholder="01XXXXXXXXX"
 id="message"
 placeholder="আপনার প্রয়োজনীয় তথ্য লিখুন"
 ></textarea>
-
 
 
 <button onclick="sendOrder()">
@@ -372,7 +354,6 @@ WhatsApp খুলে পাঠিয়ে দিন।
 </div>
 
 
-
 <!-- যোগাযোগ -->
 
 <div class="card">
@@ -380,7 +361,7 @@ WhatsApp খুলে পাঠিয়ে দিন।
 <h2>📞 সরাসরি যোগাযোগ</h2>
 
 <p>
-পাথর, বালুর দাম এবং পরিবহন খরচ জানতে সরাসরি যোগাযোগ করুন।
+M/S Rahima Traders-এর পাথর, বালুর দাম এবং পরিবহন খরচ জানতে সরাসরি যোগাযোগ করুন।
 </p>
 
 
@@ -412,14 +393,12 @@ target="_blank"
 
 <footer>
 
-© 2026 পাথর & বালু ব্যবসা
+© 2026 M/S Rahima Traders
 
 </footer>
 
 
-
 <script>
-
 
 /* পণ্য অনুযায়ী সাইজ পরিবর্তন */
 
@@ -471,110 +450,12 @@ type.innerHTML = `
 }
 
 
-
 /* WhatsApp Order */
 
 function sendOrder(){
 
-
 const product =
 document.getElementById("product").value;
 
-
 const type =
-document.getElementById("type").value;
-
-
-const quantity =
-document.getElementById("quantity").value;
-
-
-const location =
-document.getElementById("location").value;
-
-
-const name =
-document.getElementById("name").value;
-
-
-const phone =
-document.getElementById("phone").value;
-
-
-const message =
-document.getElementById("message").value;
-
-
-
-if(
-quantity === "" ||
-location === "" ||
-name === "" ||
-phone === ""
-){
-
-alert(
-"দয়া করে পরিমাণ, ডেলিভারি স্থান, নাম এবং মোবাইল নম্বর পূরণ করুন।"
-);
-
-return;
-
-}
-
-
-
-/* আপনার WhatsApp নম্বর */
-
-const whatsapp =
-"8801749252145";
-
-
-
-const text =
-
-"🪨 পাথর-বালু অর্ডার" +
-
-"\n\nপণ্য: " +
-product +
-
-"\nসাইজ/ধরন: " +
-type +
-
-"\nপরিমাণ: " +
-quantity +
-
-"\nডেলিভারি স্থান: " +
-location +
-
-"\nক্রেতার নাম: " +
-name +
-
-"\nক্রেতার মোবাইল: " +
-phone +
-
-"\nঅতিরিক্ত তথ্য: " +
-message;
-
-
-
-const url =
-"https://wa.me/" +
-whatsapp +
-"?text=" +
-encodeURIComponent(text);
-
-
-
-document.getElementById("success").style.display =
-"block";
-
-
-window.open(url,"_blank");
-
-}
-
-</script>
-
-
-</body>
-</html>
+document.getElementById("type").
