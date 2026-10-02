@@ -716,45 +716,7 @@ function showOrderDetails(id){
   }
 
 }
-function showOrderDetails(id){
 
-  const order = allOrders.find(
-    o => String(o.id) === String(id)
-  );
-
-  if(!order){
-    alert("অর্ডারের তথ্য পাওয়া যায়নি।");
-    return;
-  }
-
-  alert(
-    "📦 M/S Rahima Traders\n\n" +
-
-    "অর্ডার নম্বর: " + (order.order_no || "") +
-
-    "\nপণ্য: " + (order.product || "") +
-
-    "\nসাইজ/ধরন: " + (order.type || "") +
-
-    "\nপরিমাণ: " + (order.quantity || "") +
-
-    "\nডেলিভারি স্থান: " +
-    (order.delivery_location || "") +
-
-    "\nক্রেতার নাম: " +
-    (order.customer_name || "") +
-
-    "\nমোবাইল: " +
-    (order.phone || "") +
-
-    "\nStatus: " +
-    (order.status || "") +
-
-    "\nঅতিরিক্ত তথ্য: " +
-    (order.message || "")
-  );
-
-}
 async function checkSession(){
 
   const {data} =
