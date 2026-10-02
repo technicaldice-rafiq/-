@@ -1,1 +1,19 @@
-
+{
+  "name": "M/S Rahima Traders",
+  "short_name": "Rahima Traders",
+  "description": "পাথর ও বালু অর্ডার এবং Admin Panel",
+  "start_url": "./app.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f6f8",
+  "theme_color": "#075e54",
+  "lang": "bn",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
