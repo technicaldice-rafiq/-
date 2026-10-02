@@ -944,4 +944,225 @@ ${safe(order.type)}
 </div>
 
 
-<div class="detail
+<div class="detailLine">
+
+<span class="detailLabel">
+পরিমাণ:
+</span>
+
+${safe(order.quantity)}
+
+</div>
+
+
+<div class="detailLine">
+
+<span class="detailLabel">
+ডেলিভারি স্থান:
+</span>
+
+${safe(order.delivery_location)}
+
+</div>
+
+
+<div class="detailLine">
+
+<span class="detailLabel">
+ক্রেতার নাম:
+</span>
+
+${safe(order.customer_name)}
+
+</div>
+
+
+<div class="detailLine">
+
+<span class="detailLabel">
+মোবাইল:
+</span>
+
+${safe(order.phone)}
+
+</div>
+
+
+<div class="detailLine">
+
+<span class="detailLabel">
+Status:
+</span>
+
+${safe(order.status)}
+
+</div>
+
+
+<div class="detailLine">
+
+<span class="detailLabel">
+অতিরিক্ত তথ্য:
+</span>
+
+${safe(order.message)}
+
+</div>
+
+
+<div class="actionButtons">
+
+<a
+href="tel:${safe(order.phone)}"
+style="text-decoration:none;">
+
+<button class="callBtn">
+📞 Call Customer
+</button>
+
+</a>
+
+
+<a
+href="https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}"
+target="_blank"
+style="text-decoration:none;">
+
+<button class="whatsappBtn">
+💬 WhatsApp Customer
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* CHANGE STATUS */
+
+async function changeStatus(id,status){
+
+const {error} =
+await supabaseClient
+
+.from("orders")
+
+.update({
+status:status
+})
+
+.eq("id",id);
+
+
+if(error){
+
+alert(
+"Status পরিবর্তন হয়নি: " +
+error.message
+);
+
+return;
+
+}
+
+
+const order =
+allOrders.find(
+o => String(o.id) === String(id)
+);
+
+
+if(order){
+
+order.status =
+status;
+
+}
+
+
+updateDashboard();
+
+
+filterOrders();
+
+}
+
+
+/* DATE */
+
+function formatDate(date){
+
+if(!date)
+return "";
+
+return new Date(date)
+.toLocaleString("bn-BD");
+
+}
+
+
+/* SAFE TEXT */
+
+function safe(value){
+
+if(
+value === null ||
+value === undefined
+){
+
+return "";
+
+}
+
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* CHECK SESSION */
+
+async function checkSession(){
+
+const {data} =
+await supabaseClient
+.auth
+.getSession();
+
+
+if(data.session){
+
+document
+.getElementById("loginBox")
+.classList
+.add("hidden");
+
+
+document
+.getElementById("adminPanel")
+.classList
+.remove("hidden");
+
+
+loadOrders();
+
+}
+
+}
+
+
+checkSession();
+
+</script>
+
+</body>
+</html>
