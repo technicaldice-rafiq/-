@@ -446,3 +446,226 @@ function filterOrders(){
 
 
   displayOrders(filtered);
+
+}
+
+
+function displayOrders(data){
+
+  const area =
+    document.getElementById("orderArea");
+
+
+  document.getElementById("orderCount").innerText =
+    "দেখানো হচ্ছে: " +
+    data.length +
+    " টি অর্ডার";
+
+
+  if(!data || data.length === 0){
+
+    area.innerHTML =
+      "📭 কোনো অর্ডার পাওয়া যায়নি।";
+
+    return;
+  }
+
+
+  let html = `
+
+  <div class="tableWrap">
+
+  <table>
+
+  <tr>
+    <th>Order</th>
+    <th>Date</th>
+    <th>Product</th>
+    <th>Type</th>
+    <th>Quantity</th>
+    <th>Location</th>
+    <th>Name</th>
+    <th>Phone</th>
+    <th>Status</th>
+  </tr>
+
+  `;
+
+
+  data.forEach(order => {
+
+    html += `
+
+    <tr>
+
+      <td>
+        ${order.order_no || ""}
+      </td>
+
+      <td>
+        ${formatDate(order.created_at)}
+      </td>
+
+      <td>
+        ${order.product || ""}
+      </td>
+
+      <td>
+        ${order.type || ""}
+      </td>
+
+      <td>
+        ${order.quantity || ""}
+      </td>
+
+      <td>
+        ${order.delivery_location || ""}
+      </td>
+
+      <td>
+        ${order.customer_name || ""}
+      </td>
+
+      <td>
+        ${order.phone || ""}
+      </td>
+
+      <td>
+
+        <select
+          class="status"
+          onchange="changeStatus('${order.id}',this.value)"
+        >
+
+          <option
+            ${order.status === "নতুন" ? "selected" : ""}
+            value="নতুন"
+          >
+            নতুন
+          </option>
+
+          <option
+            ${order.status === "প্রক্রিয়াধীন" ? "selected" : ""}
+            value="প্রক্রিয়াধীন"
+          >
+            প্রক্রিয়াধীন
+          </option>
+
+          <option
+            ${order.status === "ডেলিভারি" ? "selected" : ""}
+            value="ডেলিভারি"
+          >
+            ডেলিভারি
+          </option>
+
+          <option
+            ${order.status === "সম্পন্ন" ? "selected" : ""}
+            value="সম্পন্ন"
+          >
+            সম্পন্ন
+          </option>
+
+        </select>
+
+      </td>
+
+    </tr>
+
+    `;
+
+  });
+
+
+  html += `
+
+  </table>
+
+  </div>
+
+  `;
+
+
+  area.innerHTML = html;
+
+}
+
+
+async function changeStatus(id,status){
+
+  const {error} =
+    await supabaseClient
+      .from("orders")
+      .update({
+        status:status
+      })
+      .eq("id",id);
+
+
+  if(error){
+
+    alert(
+      "Status পরিবর্তন হয়নি: " +
+      error.message
+    );
+
+    return;
+  }
+
+
+  const order =
+    allOrders.find(
+      o => String(o.id) === String(id)
+    );
+
+
+  if(order){
+
+    order.status = status;
+
+  }
+
+
+  updateDashboard();
+
+  filterOrders();
+
+}
+
+
+function formatDate(date){
+
+  if(!date) return "";
+
+  return new Date(date)
+    .toLocaleString("bn-BD");
+
+}
+
+
+async function checkSession(){
+
+  const {data} =
+    await supabaseClient.auth.getSession();
+
+
+  if(data.session){
+
+    document.getElementById("loginBox")
+      .classList.add("hidden");
+
+    document.getElementById("adminPanel")
+      .classList.remove("hidden");
+
+    loadOrders();
+
+  }
+
+}
+
+
+checkSession();
+
+</script>
+
+</body>
+</html>
