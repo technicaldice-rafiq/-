@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -18,7 +19,17 @@ jobs:
           java-version: '17'
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+        run: |
+          export ANDROID_HOME="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/cmdline-tools/16.0/bin:$ANDROID_HOME/platform-tools:$PATH"
+
+          yes | sdkmanager --licenses >/dev/null 2>&1 || true
+
+          sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+
+          echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
+          echo "$ANDROID_HOME/platform-tools" >> "$GITHUB_PATH"
+          echo "$ANDROID_HOME/cmdline-tools/16.0/bin" >> "$GITHUB_PATH"
 
       - name: Create Android project
         run: |
@@ -90,12 +101,15 @@ jobs:
               android:height="48dp"
               android:viewportWidth="48"
               android:viewportHeight="48">
+
               <path
                   android:fillColor="#075e54"
                   android:pathData="M0,0h48v48h-48z"/>
+
               <path
                   android:fillColor="#FFFFFF"
                   android:pathData="M10,20h28v18h-28zM8,20l16,-10 16,10zM20,26h8v12h-8z"/>
+
           </vector>
           EOF
 
@@ -151,14 +165,15 @@ jobs:
                   setContentView(web);
 
                   WebSettings settings = web.getSettings();
+
                   settings.setJavaScriptEnabled(true);
                   settings.setDomStorageEnabled(true);
                   settings.setDatabaseEnabled(true);
-                  
-                
+
                   web.setWebChromeClient(new WebChromeClient());
 
                   web.setWebViewClient(new WebViewClient() {
+
                       @Override
                       public boolean shouldOverrideUrlLoading(
                               WebView view,
@@ -202,6 +217,8 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
 
       - name: Generate Gradle Wrapper
         working-directory: android
